@@ -1,0 +1,1260 @@
+login as: budzichowskim
+budzichowskim@213.184.8.36's password:
+Linux bad2 4.10.17-1-pve #1 SMP PVE 4.10.17-16 (Tue, 11 Jul 2017 09:55:44 +0200)                                              x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Wed Nov  3 11:37:57 2021 from 213.184.8.151
+budzichowskim@bad2:~$ mysql -u budzichowskim -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 597
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> desc projekt1;
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| budzichowskim      |
+| information_schema |
++--------------------+
+2 rows in set (0.05 sec)
+
+mysql> use budzichowskim;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------------+
+| Tables_in_budzichowskim |
++-------------------------+
+| izba                    |
+| pracownik               |
+| projekt1                |
+| przetwory               |
+| statek                  |
+| walizka                 |
++-------------------------+
+6 rows in set (0.00 sec)
+
+mysql> desc projekt1;
++------------+---------------------------------+------+-----+---------+---------                                             -------+
+| Field      | Type                            | Null | Key | Default | Extra                                                       |
++------------+---------------------------------+------+-----+---------+---------                                             -------+
+| id_postaci | int                             | NO   | PRI | NULL    | auto_inc                                             rement |
+| nazwa      | varchar(40)                     | NO   |     | NULL    |                                                             |
+| rodzaj     | enum('wiking','ptak','kobieta') | YES  |     | NULL    |                                                             |
+| data_ur    | date                            | NO   |     | NULL    |                                                             |
+| wiek       | int unsigned                    | YES  |     | NULL    |                                                             |
+| funkcja    | varchar(40)                     | YES  |     | NULL    |                                                             |
+| statek     | varchar(40)                     | YES  | MUL | NULL    |                                                             |
++------------+---------------------------------+------+-----+---------+---------                                             -------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT*FROM projekt1;
++------------+----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa    | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+----------+--------+------------+------+---------+--------+
+|          1 | Bjorn    | wiking | 1990-12-01 |   31 | Kapitan | NULL   |
+|          2 | Drozd    | ptak   | 2020-12-01 |    1 | NULL    | NULL   |
+|          3 | Tesciowa | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
++------------+----------+--------+------------+------+---------+--------+
+3 rows in set (0.03 sec)
+
+mysql> INSERT INTO projekt1 VALUES(4,Jan,'wiking','1990-12-12','31');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO projekt1 VALUES(4,Jan,'wiking','1990-12-12','31',NULL,NULL);
+ERROR 1054 (42S22): Unknown column 'Jan' in 'field list'
+mysql> INSERT INTO projekt1 VALUES(4,'Jan','wiking','1990-12-12','31',NULL,NULL);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> SELECT*FROM projekt1;
++------------+----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa    | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+----------+--------+------------+------+---------+--------+
+|          1 | Bjorn    | wiking | 1990-12-01 |   31 | Kapitan | NULL   |
+|          2 | Drozd    | ptak   | 2020-12-01 |    1 | NULL    | NULL   |
+|          3 | Tesciowa | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan      | wiking | 1990-12-12 |   31 | NULL    | NULL   |
++------------+----------+--------+------------+------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO projekt1 VALUES(4,'Krzysztof','wiking','1990-12-11','31',NULL,NULL);
+ERROR 1062 (23000): Duplicate entry '4' for key 'projekt1.PRIMARY'
+mysql> INSERT INTO projekt1 VALUES(5,'Krzysztof','wiking','1990-12-11','31',NULL,NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO projekt1 VALUES(6,'Jakub','wiking','1990-11-11','31',NULL,NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO projekt1 VALUES(6,'Zbigniew','wiking','1990-09-11','31',NULL,NULL);
+ERROR 1062 (23000): Duplicate entry '6' for key 'projekt1.PRIMARY'
+mysql> INSERT INTO projekt1 VALUES(7,'Zbigniew','wiking','1990-09-11','31',NULL,NULL);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+-----------+--------+------------+------+---------+--------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | NULL   |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | NULL   |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | NULL   |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | NULL   |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | NULL   |
+|          7 | Zbigniew  | wiking | 1990-09-11 |   31 | NULL    | NULL   |
++------------+-----------+--------+------------+------+---------+--------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT INTO projekt1 VALUES(8,'Lukasz','wiking','1990-02-28','31',NULL,NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+-----------+--------+------------+------+---------+--------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | NULL   |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | NULL   |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | NULL   |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | NULL   |
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+-----------+--------+------------+------+---------+--------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | NULL   |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | NULL   |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | NULL   |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | NULL   |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | NULL   |
+|          7 | Zbigniew  | wiking | 1990-09-11 |   31 | NULL    | NULL   |
+|          8 | Lukasz    | wiking | 1990-02-28 |   31 | NULL    | NULL   |
++------------+-----------+--------+------------+------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> Update projekt1 set statek=Victoria WHERE Jan
+    -> ;
+ERROR 1054 (42S22): Unknown column 'Jan' in 'where clause'
+mysql> Update projekt1 set statek=Victoria WHERE 'Jan'
+    -> ;
+ERROR 1292 (22007): Truncated incorrect DOUBLE value: 'Jan'
+mysql> UPDATE projekt1 SET statek='Victoria' WHERE nazwa="Jan";
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`budzichowskim`.`projekt1`, CONSTRAINT  KEY (`statek`) REFERENCES `statek` (`nazwa_statku`))
+mysql> UPDATE projekt1 SET nazwa_statku='Victoria' WHERE nazwa="Jan";
+ERROR 1054 (42S22): Unknown column 'nazwa_statku' in 'field list'
+mysql> UPDATE projekt1 SET statek='Victoria' WHERE nazwa="Jan";
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`budzichowskim`.`projekt1`, CONSTRAINT ek`) REFERENCES `statek` (`nazwa_statku`))
+mysql>     -> mysql> ALTER TABLE projekt1 DROP Jakub;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for ql> ALTER TABLE projekt1 DROP Jakub' at line 1
+mysql> UPDATE projekt1 SET statek='Victoria' WHERE nazwa="Jan";
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`budzichowskim`.`projekt1`, CONSTRAINT ek`) REFERENCES `statek` (`nazwa_statku`))
+mysql> desc izba;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| adres_budynku | int          | NO   | PRI | NULL    |       |
+| nazwa_izby    | int          | NO   | PRI | NULL    |       |
+| metraz        | int unsigned | YES  |     | NULL    |       |
+| kolor_izby    | varchar(40)  | YES  |     | czarny  |       |
+| wlasciciel    | int          | YES  | MUL | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT*FROM nazwa_izby;
+ERROR 1146 (42S02): Table 'budzichowskim.nazwa_izby' doesn't exist
+mysql> SELECT*FROM izba;
+Empty set (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| budzichowskim      |
+| information_schema |
++--------------------+
+2 rows in set (0.00 sec)
+
+mysql> use budzichowskim;
+Database changed
+mysql> SHOW TABLES;
++-------------------------+
+| Tables_in_budzichowskim |
++-------------------------+
+| izba                    |
+| pracownik               |
+| projekt1                |
+| przetwory               |
+| statek                  |
+| walizka                 |
++-------------------------+
+6 rows in set (0.00 sec)
+
+mysql> desc izba;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| adres_budynku | int          | NO   | PRI | NULL    |       |
+| nazwa_izby    | int          | NO   | PRI | NULL    |       |
+| metraz        | int unsigned | YES  |     | NULL    |       |
+| kolor_izby    | varchar(40)  | YES  |     | czarny  |       |
+| wlasciciel    | int          | YES  | MUL | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> DROP TABLE izba;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW TABLES;
++-------------------------+
+| Tables_in_budzichowskim |
++-------------------------+
+| pracownik               |
+| projekt1                |
+| przetwory               |
+| statek                  |
+| walizka                 |
++-------------------------+
+5 rows in set (0.00 sec)
+
+mysql> INSERT INTO statek;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for ine 1
+mysql> INSERT*INTO statek;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for statek' at line 1
+mysql> desc statek;
++----------------+--------------+------+-----+---------+-------+
+| Field          | Type         | Null | Key | Default | Extra |
++----------------+--------------+------+-----+---------+-------+
+| nazwa_statku   | varchar(40)  | NO   | PRI | NULL    |       |
+| rodzaj_statku  | varchar(40)  | YES  |     | NULL    |       |
+| data_wodowania | date         | YES  |     | NULL    |       |
+| max_ladownosc  | int unsigned | YES  |     | NULL    |       |
++----------------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT*INTO statek;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for statek' at line 1
+mysql> INSERT*INTO nazwa_statku;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for nazwa_statku' at line 1
+mysql> SELECT*FROM statek;
++--------------+---------------+----------------+---------------+
+| nazwa_statku | rodzaj_statku | data_wodowania | max_ladownosc |
++--------------+---------------+----------------+---------------+
+| Mars         | Duzy          | 2006-02-13     |            25 |
+| Wenus        | Maly          | 2006-02-13     |            25 |
++--------------+---------------+----------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE projekt1 SET statek='Mars' WHERE nazwa="Jan";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+-----------+--------+------------+------+---------+--------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | NULL   |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | NULL   |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | NULL   |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | NULL   |
+|          7 | Zbigniew  | wiking | 1990-09-11 |   31 | NULL    | NULL   |
+|          8 | Lukasz    | wiking | 1990-02-28 |   31 | NULL    | NULL   |
++------------+-----------+--------+------------+------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> UPDATE projekt1 SET statek='Mars' WHERE nazwa="Bjorn";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET statek='Mars' WHERE nazwa="Drozd";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET statek='Wenus' WHERE nazwa="Krzysztof";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET statek='Wenus' WHERE nazwa="Jakub";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET statek='Wenus' WHERE nazwa="Zbigniew";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET statek='Wenus' WHERE nazwa="Lukasz";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+-----------+--------+------------+------+---------+--------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  |
+|          7 | Zbigniew  | wiking | 1990-09-11 |   31 | NULL    | Wenus  |
+|          8 | Lukasz    | wiking | 1990-02-28 |   31 | NULL    | Wenus  |
++------------+-----------+--------+------------+------+---------+--------+
+8 rows in set (0.00 sec)
+
+mysql> DELETE Lukasz WHERE projekt1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for projekt1' at line 1
+mysql> DELETE FROM projekt1 WHERE nazwa="Lukasz";
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+-----------+--------+------------+------+---------+--------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  |
+|          7 | Zbigniew  | wiking | 1990-09-11 |   31 | NULL    | Wenus  |
++------------+-----------+--------+------------+------+---------+--------+
+7 rows in set (0.00 sec)
+
+mysql> DELETE FROM projekt1 WHERE nazwa="Zbigniew";
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+-----------+--------+------------+------+---------+--------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  |
++------------+-----------+--------+------------+------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                         |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int NOT NULL AUTO_INCREMENT,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id_postaci`),
+  KEY `statek` (`statek`),
+  CONSTRAINT `projekt1_ibfk_1` FOREIGN KEY (`statek`) REFERENCES `statek` (`nazwa_statku`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 DROP FORFIGN KEY ibfk_1_projekt1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for fk_1_projekt1' at line 1
+mysql> ALTER TABLE projekt1 DROP FORFIGN KEY projekt1_ibfk_1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for ekt1_ibfk_1' at line 1
+mysql> ALTER TABLE projekt1 DROP FOREIGN KEY projekt1_ibfk_1;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 MODIFY id_postaci INT;
+ERROR 1833 (HY000): Cannot change column 'id_postaci': used in a foreign key constraint 'walizka_ibfk_1' of table 'budzichows
+mysql> SHOW CREATE TABLE walizka;
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                          |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| walizka | CREATE TABLE `walizka` (
+  `id_walizki` int NOT NULL AUTO_INCREMENT,
+  `pojemnosc` int unsigned DEFAULT NULL,
+  `kolor` enum('rozowy','czerwony','teczowy','zolty') DEFAULT NULL,
+  `id_wlasciciela` int DEFAULT NULL,
+  PRIMARY KEY (`id_walizki`),
+  KEY `id_wlasciciela` (`id_wlasciciela`),
+  CONSTRAINT `walizka_ibfk_1` FOREIGN KEY (`id_wlasciciela`) REFERENCES `projekt1` (`id_postaci`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE walizka DROP FOREIGN KEY walizka_ibfk_1;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 MODIFY id_postaci INT;
+ERROR 1833 (HY000): Cannot change column 'id_postaci': used in a foreign key constraint 'przetwory_ibfk_1' of table 'budzicho
+mysql> ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_1;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 MODIFY id_postaci INT;
+Query OK, 6 rows affected (0.16 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 ADD pesel;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for e 1
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW TABLE projekt1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for ' at line 1
+mysql> desc projekt1;
++------------+---------------------------------+------+-----+---------+-------+
+| Field      | Type                            | Null | Key | Default | Extra |
++------------+---------------------------------+------+-----+---------+-------+
+| id_postaci | int                             | NO   | PRI | NULL    |       |
+| nazwa      | varchar(40)                     | NO   |     | NULL    |       |
+| rodzaj     | enum('wiking','ptak','kobieta') | YES  |     | NULL    |       |
+| data_ur    | date                            | NO   |     | NULL    |       |
+| wiek       | int unsigned                    | YES  |     | NULL    |       |
+| funkcja    | varchar(40)                     | YES  |     | NULL    |       |
+| statek     | varchar(40)                     | YES  | MUL | NULL    |       |
+| pesel      | varchar(40)                     | YES  |     | NULL    |       |
++------------+---------------------------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+-------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek | pesel |
++------------+-----------+--------+------------+------+---------+--------+-------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   | NULL  |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   | NULL  |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   | NULL  |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   | NULL  |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  | NULL  |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  | NULL  |
++------------+-----------+--------+------------+------+---------+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 DROP pesel;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek |
++------------+-----------+--------+------------+------+---------+--------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  |
++------------+-----------+--------+------------+------+---------+--------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40) PRIMARY KEY;
+ERROR 1068 (42000): Multiple primary key defined
+mysql> ALTER TABLE projekt1 DROP FOREIGN KEY projekt1_ibfk_1;
+ERROR 1091 (42000): Can't DROP 'projekt1_ibfk_1'; check that column/key exists
+mysql> SHOW CREATE TABLE projekt1;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                         |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int NOT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id_postaci`),
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 DROP FOREIGN KEY id_postaci;
+ERROR 1091 (42000): Can't DROP 'id_postaci'; check that column/key exists
+mysql> ALTER TABLE projekt1 MODIFY id_postaci INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                         |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int NOT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id_postaci`),
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 DROP PRIMARY KEY id_postaci;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id_postaci' at line 1
+mysql> ALTER TABLE projekt1 DROP PRIMARY KEY projekt1_ibfk_1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'projekt1_ibfk_1' at line 1
+mysql> ALTER TABLE projekt1 DROP PRIMARY KEY id_postaci;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id_postaci' at line 1
+mysql> ALTER TABLE projekt1 DROP PRIMARY KEY;
+Query OK, 6 rows affected (0.15 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                           |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int NOT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 MODIFY id_postaci INT;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                               |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40) PRIMARY KEY;\
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40) PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40) PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> ALTER TABLE projekt1 ADD pesel PRIMARY KEY VARCHAR(40);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY VARCHAR(40)' at line 1
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 MODIFY pesel PRIMARY KEY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY' at line 1
+mysql> ALTER TABLE projekt1 MODIFY pesel VARCHAR(40) PRIMARY KEY;
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> desc projekt1;
++------------+---------------------------------+------+-----+---------+-------+
+| Field      | Type                            | Null | Key | Default | Extra |
++------------+---------------------------------+------+-----+---------+-------+
+| id_postaci | int                             | YES  |     | NULL    |       |
+| nazwa      | varchar(40)                     | NO   |     | NULL    |       |
+| rodzaj     | enum('wiking','ptak','kobieta') | YES  |     | NULL    |       |
+| data_ur    | date                            | NO   |     | NULL    |       |
+| wiek       | int unsigned                    | YES  |     | NULL    |       |
+| funkcja    | varchar(40)                     | YES  |     | NULL    |       |
+| statek     | varchar(40)                     | YES  | MUL | NULL    |       |
+| pesel      | varchar(40)                     | YES  |     | NULL    |       |
++------------+---------------------------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> ALTER TABLE projekt1 DROP pesel;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc projekt1;
++------------+---------------------------------+------+-----+---------+-------+
+| Field      | Type                            | Null | Key | Default | Extra |
++------------+---------------------------------+------+-----+---------+-------+
+| id_postaci | int                             | YES  |     | NULL    |       |
+| nazwa      | varchar(40)                     | NO   |     | NULL    |       |
+| rodzaj     | enum('wiking','ptak','kobieta') | YES  |     | NULL    |       |
+| data_ur    | date                            | NO   |     | NULL    |       |
+| wiek       | int unsigned                    | YES  |     | NULL    |       |
+| funkcja    | varchar(40)                     | YES  |     | NULL    |       |
+| statek     | varchar(40)                     | YES  | MUL | NULL    |       |
++------------+---------------------------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40) PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> SHOW CREATE TABLE statek;
++--------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table  | Create Table                                                                                                                                                                                                                                                                                    |
++--------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| statek | CREATE TABLE `statek` (
+  `nazwa_statku` varchar(40) NOT NULL,
+  `rodzaj_statku` varchar(40) DEFAULT NULL,
+  `data_wodowania` date DEFAULT NULL,
+  `max_ladownosc` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`nazwa_statku`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++--------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE statek DROP FOREIGN KEY statek_ibfk_1;
+ERROR 1091 (42000): Can't DROP 'statek_ibfk_1'; check that column/key exists
+mysql> ALTER TABLE projekt1 MODIFY id_postaci INT;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                               |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40) PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40),PRIMARY KEY(pesel);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY(pesel)' at line 1
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40)PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40) PRIMARY KEY;
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 ADD PRIMARY KEY('pesel');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''pesel')' at line 1
+mysql> ALTER TABLE projekt1 ADD PRIMARY KEY(pesel);
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> SHOW CREATE TABLE projekt1;
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                   |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  `pesel` varchar(40) DEFAULT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT*FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+-------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek | pesel |
++------------+-----------+--------+------------+------+---------+--------+-------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   | NULL  |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   | NULL  |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   | NULL  |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   | NULL  |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  | NULL  |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  | NULL  |
++------------+-----------+--------+------------+------+---------+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 DROP pesel;
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40) NOT NULL;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 ADD PRIMARY KEY(pesel);
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> ALTER TABLE projekt1 ADD PRIMARY KEY('pesel');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''pesel')' at line 1
+mysql> ALTER TABLE projekt1 ADD PRIMARY KEY(pesel);
+ERROR 1062 (23000): Duplicate entry '' for key 'projekt1.PRIMARY'
+mysql> SHOW CREATE TABLE projekt1;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                               |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  `pesel` varchar(40) NOT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                               |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  `pesel` varchar(40) NOT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE przetwory;
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table     | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| przetwory | CREATE TABLE `przetwory` (
+  `id_przetworu` int NOT NULL,
+  `rok_Produkcji` year DEFAULT '1985',
+  `id_wykonwacy` int DEFAULT NULL,
+  `zawartosc` varchar(40) DEFAULT NULL,
+  `dodatek` varchar(40) DEFAULT 'papryczka_chilli',
+  `id_konsumenta` int DEFAULT NULL,
+  `bigos_z_papryczka_chilli` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id_przetworu`),
+  KEY `id_konsumenta` (`id_konsumenta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++-----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE walizka;
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table   | Create Table                                                                                                                                                                                                                                                                                                                                                                       |
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| walizka | CREATE TABLE `walizka` (
+  `id_walizki` int NOT NULL AUTO_INCREMENT,
+  `pojemnosc` int unsigned DEFAULT NULL,
+  `kolor` enum('rozowy','czerwony','teczowy','zolty') DEFAULT NULL,
+  `id_wlasciciela` int DEFAULT NULL,
+  PRIMARY KEY (`id_walizki`),
+  KEY `id_wlasciciela` (`id_wlasciciela`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++---------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> ALTER TABLE projekt1 DROP PRIMARY KEY;
+ERROR 1091 (42000): Can't DROP 'PRIMARY'; check that column/key exists
+mysql> ALTER TABLE projekt1 DROP PRIMARY KEY(id_postaci);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(id_postaci)' at line 1
+mysql> desc projekt1;
++------------+---------------------------------+------+-----+---------+-------+
+| Field      | Type                            | Null | Key | Default | Extra |
++------------+---------------------------------+------+-----+---------+-------+
+| id_postaci | int                             | YES  |     | NULL    |       |
+| nazwa      | varchar(40)                     | NO   |     | NULL    |       |
+| rodzaj     | enum('wiking','ptak','kobieta') | YES  |     | NULL    |       |
+| data_ur    | date                            | NO   |     | NULL    |       |
+| wiek       | int unsigned                    | YES  |     | NULL    |       |
+| funkcja    | varchar(40)                     | YES  |     | NULL    |       |
+| statek     | varchar(40)                     | YES  | MUL | NULL    |       |
+| pesel      | varchar(40)                     | NO   |     | NULL    |       |
++------------+---------------------------------+------+-----+---------+-------+
+8 rows in set (0.01 sec)
+
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(40)PRIMARY KEY;
+ERROR 1060 (42S21): Duplicate column name 'pesel'
+mysql> SELECT * FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+-------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek | pesel |
++------------+-----------+--------+------------+------+---------+--------+-------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   |       |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   |       |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   |       |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   |       |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  |       |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  |       |
++------------+-----------+--------+------------+------+---------+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 DROP pesel;
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE projekt1 ADD pesel VARCHAR(11);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+-------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek | pesel |
++------------+-----------+--------+------------+------+---------+--------+-------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   | NULL  |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   | NULL  |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   | NULL  |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   | NULL  |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  | NULL  |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  | NULL  |
++------------+-----------+--------+------------+------+---------+--------+-------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE projekt1 SET pesel=('01234567891') WHERE nazwa='Bjorn';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek | pesel       |
++------------+-----------+--------+------------+------+---------+--------+-------------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   | NULL        |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   | NULL        |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   | NULL        |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  | NULL        |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  | NULL        |
++------------+-----------+--------+------------+------+---------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> UPDATE projekt1 SET pesel=('02233561895') WHERE nazwa='Drozd';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET pesel=('12433463895') WHERE nazwa='Tesciowa';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET pesel=(011423363995') WHERE nazwa='Jan';
+    '>
+    '> UPDATE projekt1 SET pesel=('011423363995') WHERE nazwa='Jan';
+    '> ;
+    '> ^C
+mysql> UPDATE projekt1 SET pesel=('011423363995') WHERE nazwa='Jan';
+ERROR 1406 (22001): Data too long for column 'pesel' at row 4
+mysql> UPDATE projekt1 SET pesel=('01142333995') WHERE nazwa='Jan';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET pesel=('01241343995') WHERE nazwa='Krzysztof';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE projekt1 SET pesel=('03242313915') WHERE nazwa='Jakub';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM projekt1;
++------------+-----------+--------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa     | rodzaj | data_ur    | wiek | funkcja | statek | pesel       |
++------------+-----------+--------+------------+------+---------+--------+-------------+
+|          1 | Bjorn     | wiking | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd     | ptak   | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa  | ptak   | 1940-12-01 |   88 | NULL    | NULL   | 12433463895 |
+|          4 | Jan       | wiking | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof | wiking | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub     | wiking | 1990-11-11 |   31 | NULL    | Wenus  | 03242313915 |
++------------+-----------+--------+------------+------+---------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> ALTER TABLE projekt1 CHANGE rodzaj ENUM('syrena');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '('syrena')' at line 1
+mysql> ALTER TABLE projekt1 CHANGE rodzaj rodzaj ENUM('syrena');
+ERROR 1265 (01000): Data truncated for column 'rodzaj' at row 1
+mysql> ALTER TABLE projekt1 ADD rodzaj ENUM('syrena');
+ERROR 1060 (42S21): Duplicate column name 'rodzaj'
+mysql> ALTER TABLE projekt1 ADD rodzaj rodzaj ENUM('syrena');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rodzaj ENUM('syrena')' at line 1
+mysql> ALTER TABLE projekt1 ADD rodzaj=ENUM('syrena');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '=ENUM('syrena')' at line 1
+mysql> ALTER TABLE projekt1 CHANGE rodzaj ENUM('wiking','ptak','kobieta','syrena');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '('wiking','ptak','kobieta','syrena')' at line 1
+mysql> ALTER TABLE projekt1 CHANGE rodzaj rodzaj ENUM('wiking','ptak','kobieta','syrena');
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> UPATE projekt1 SET rodzaj='kobieta' WHERE nazwa='Tesciowa';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'UPATE projekt1 SET rodzaj='kobieta' WHERE nazwa='Tesciowa'' at line 1
+mysql> UPdATE projekt1 SET rodzaj='kobieta' WHERE nazwa='Tesciowa';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM projekt1;
++------------+-----------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa     | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+-----------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn     | wiking  | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd     | ptak    | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa  | kobieta | 1940-12-01 |   88 | NULL    | NULL   | 12433463895 |
+|          4 | Jan       | wiking  | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof | wiking  | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub     | wiking  | 1990-11-11 |   31 | NULL    | Wenus  | 03242313915 |
++------------+-----------+---------+------------+------+---------+--------+-------------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO projekt1 VALUES(NULL,'Gertruda Nieszczera','syrena','2000-06-03','21');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO projekt1 VALUES('Gertruda Nieszczera','syrena','2000-06-03','21');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO projekt1 VALUES(7,'Gertruda Nieszczera','syrena','2000-06-03','21');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO projekt1 VALUES(7,'Gertruda Nieszczera','syrena','2000-06-03','21',NULL,NULL,NULL);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM projekt1;
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa               | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn               | wiking  | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd               | ptak    | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa            | kobieta | 1940-12-01 |   88 | NULL    | NULL   | 12433463895 |
+|          4 | Jan                 | wiking  | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof           | wiking  | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub               | wiking  | 1990-11-11 |   31 | NULL    | Wenus  | 03242313915 |
+|          7 | Gertruda Nieszczera | syrena  | 2000-06-03 |   21 | NULL    | NULL   | NULL        |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE projekt1 SET statek='Mars' WHERE nazwa='Jakub';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM projekt1;
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa               | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn               | wiking  | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd               | ptak    | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa            | kobieta | 1940-12-01 |   88 | NULL    | NULL   | 12433463895 |
+|          4 | Jan                 | wiking  | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof           | wiking  | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub               | wiking  | 1990-11-11 |   31 | NULL    | Mars   | 03242313915 |
+|          7 | Gertruda Nieszczera | syrena  | 2000-06-03 |   21 | NULL    | NULL   | NULL        |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> WHERE nazwa LIKE '%a%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE nazwa LIKE '%a%'' at line 1
+mysql> UPDATE projekt1 WHERE nazwa LIKE '%a%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE nazwa LIKE '%a%'' at line 1
+mysql> UPDATE projekt1 WHERE nazwa LIKE %a%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE nazwa LIKE %a%' at line 1
+mysql> UPDATE projekt1 SET statek='Mars' WHERE nazwa LIKE '%a%';
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 4  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM projekt1;
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa               | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn               | wiking  | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd               | ptak    | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa            | kobieta | 1940-12-01 |   88 | NULL    | Mars   | 12433463895 |
+|          4 | Jan                 | wiking  | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof           | wiking  | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub               | wiking  | 1990-11-11 |   31 | NULL    | Mars   | 03242313915 |
+|          7 | Gertruda Nieszczera | syrena  | 2000-06-03 |   21 | NULL    | Mars   | NULL        |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM statek;
++--------------+---------------+----------------+---------------+
+| nazwa_statku | rodzaj_statku | data_wodowania | max_ladownosc |
++--------------+---------------+----------------+---------------+
+| Mars         | Duzy          | 2006-02-13     |            25 |
+| Wenus        | Maly          | 2006-02-13     |            25 |
++--------------+---------------+----------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> UPDATE statek SET max_ladownosc=max_ladownosc-0.3*max_ladowosc WHERE data_wodowania BETWEEN '1901-01-01' AND '2000-01-01';
+ERROR 1054 (42S22): Unknown column 'max_ladowosc' in 'field list'
+mysql> UPDATE statek SET max_ladownosc=max_ladownosc-0.3*max_ladownosc WHERE data_wodowania BETWEEN '1901-01-01' AND '2000-01-01';
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE projekt1 SET wiek<1000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '<1000' at line 1
+mysql> UPDATE projekt1 SET wiek<1000 WHERE nazwa;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '<1000 WHERE nazwa' at line 1
+mysql> UPDATE projekt1 SET wiek WHERE wiek<1000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE wiek<1000' at line 1
+mysql> UPDATE projekt1 SET wiek="Powyzej 1000lat' WHERE wiek<1000;
+    "> ;
+    "> ^C
+mysql> UPDATE projekt1 SET wiek='Powyzej 1000lat' WHERE wiek > 1000;
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 0  Changed: 0  Warnings: 0
+
+mysql> UPDATE projekt1 CHANGE rodzaj ENUM('wiking','ptak','kobieta','syrena','waz');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CHANGE rodzaj ENUM('wiking','ptak','kobieta','syrena','waz')' at line 1
+mysql> UPDATE projekt1 CHANGE rodzaj rodzaj ENUM('wiking','ptak','kobieta','syrena','waz');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CHANGE rodzaj rodzaj ENUM('wiking','ptak','kobieta','syrena','waz')' at line 1
+mysql> ALTER TABLE projekt1 CHANGE rodzaj rodzaj ENUM('wiking','ptak','kobieta','syrena','waz');
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSER FROM projekt1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSER FROM projekt1' at line 1
+mysql> INSERtFROM projekt1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSERtFROM projekt1' at line 1
+mysql> INSERt*FROM projekt1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*FROM projekt1' at line 1
+mysql> SELECT * FROM statek;
++--------------+---------------+----------------+---------------+
+| nazwa_statku | rodzaj_statku | data_wodowania | max_ladownosc |
++--------------+---------------+----------------+---------------+
+| Mars         | Duzy          | 2006-02-13     |            25 |
+| Wenus        | Maly          | 2006-02-13     |            25 |
++--------------+---------------+----------------+---------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM projekt1;
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa               | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn               | wiking  | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd               | ptak    | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa            | kobieta | 1940-12-01 |   88 | NULL    | Mars   | 12433463895 |
+|          4 | Jan                 | wiking  | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof           | wiking  | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub               | wiking  | 1990-11-11 |   31 | NULL    | Mars   | 03242313915 |
+|          7 | Gertruda Nieszczera | syrena  | 2000-06-03 |   21 | NULL    | Mars   | NULL        |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> INSERT INTO projekt1 VALUES(,'Loko','waz','','','','','')
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','Loko','waz','','','','','')' at line 1
+mysql> INSERT INTO projekt1 VALUES(8,'Loko','waz',2010-10-10','11','','','');
+    '> ^C
+mysql> INSERT INTO projekt1 VALUES(8,'Loko','waz','2010-10-10','11','','','');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM projekt1;
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa               | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn               | wiking  | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd               | ptak    | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa            | kobieta | 1940-12-01 |   88 | NULL    | Mars   | 12433463895 |
+|          4 | Jan                 | wiking  | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof           | wiking  | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub               | wiking  | 1990-11-11 |   31 | NULL    | Mars   | 03242313915 |
+|          7 | Gertruda Nieszczera | syrena  | 2000-06-03 |   21 | NULL    | Mars   | NULL        |
+|          8 | Loko                | waz     | 2010-10-10 |   11 |         |        |             |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> CREATE TABLE marynarz(id_postaci INT,nazwa VARCHAR(40) NOT NULL,rodzaj ENUM('wiking','ptak','kobieta','syrena','waz'),data_ur DATE NOT NULL,wiek INT UNSIGNED);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> INSERT INTO marynarz(SELECT*FROM projekt1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO marynarz(SELECT*FROM projekt1);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> SELECT*FROM marynarz;
+Empty set (0.00 sec)
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                  |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta','syrena','waz') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  `pesel` varchar(11) DEFAULT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE marynarzx;
+ERROR 1146 (42S02): Table 'budzichowskim.marynarzx' doesn't exist
+mysql> SHOW CREATE TABLE marynarz;
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                        |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| marynarz | CREATE TABLE `marynarz` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta','syrena','waz') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.01 sec)
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                  |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta','syrena','waz') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  `pesel` varchar(11) DEFAULT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW CREATE TABLE marynarz;
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                        |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| marynarz | CREATE TABLE `marynarz` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta','syrena','waz') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> DELETE TABLE marynarz;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE marynarz' at line 1
+mysql> DROP TABEL marynarz;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABEL marynarz' at line 1
+mysql> DROP TABEL marynarz;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABEL marynarz' at line 1
+mysql> DROP TABle marynarz;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SHOW CREATE TABLE projekt1;
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                                  |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| projekt1 | CREATE TABLE `projekt1` (
+  `id_postaci` int DEFAULT NULL,
+  `nazwa` varchar(40) NOT NULL,
+  `rodzaj` enum('wiking','ptak','kobieta','syrena','waz') DEFAULT NULL,
+  `data_ur` date NOT NULL,
+  `wiek` int unsigned DEFAULT NULL,
+  `funkcja` varchar(40) DEFAULT NULL,
+  `statek` varchar(40) DEFAULT NULL,
+  `pesel` varchar(11) DEFAULT NULL,
+  KEY `statek` (`statek`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci |
++----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE marynarz(id_postaci INT,nazwa VARCHAR(40) NOT NULL,rodzaj ENUM('wiking','ptak','kobieta','syrena','waz'),data_ur DATE NOT NULL,wiek INT UNSIGNED,funkcja VARCHAR(40),statek VARCHAR(40),pesel VARCHAR(11));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO marynarz(SELECT*FROM projekt1);
+Query OK, 8 rows affected (0.01 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> SELECT FROM marynarz;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM marynarz' at line 1
+mysql> SELECT*FROM marynarz;
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa               | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn               | wiking  | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd               | ptak    | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa            | kobieta | 1940-12-01 |   88 | NULL    | Mars   | 12433463895 |
+|          4 | Jan                 | wiking  | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof           | wiking  | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub               | wiking  | 1990-11-11 |   31 | NULL    | Mars   | 03242313915 |
+|          7 | Gertruda Nieszczera | syrena  | 2000-06-03 |   21 | NULL    | Mars   | NULL        |
+|          8 | Loko                | waz     | 2010-10-10 |   11 |         |        |             |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+8 rows in set (0.00 sec)
+
+mysql> ALTER TABLE marynarz DROP Loko;
+ERROR 1091 (42000): Can't DROP 'Loko'; check that column/key exists
+mysql> ALTER TABLE Loko;
+ERROR 1146 (42S02): Table 'budzichowskim.Loko' doesn't exist
+mysql> DROP TABLE Loko;
+ERROR 1051 (42S02): Unknown table 'budzichowskim.Loko'
+mysql> ALTER TABLE marynarz DTOP TABLE Loko;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DTOP TABLE Loko' at line 1
+mysql> ALTER TABLE marynarz DTOP \Loko;
+ERROR:
+Unknown command '\L'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DTOP \Loko' at line 1
+mysql> ALTER TABLE marynarz DROP TABLE Loko;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'TABLE Loko' at line 1
+mysql> ALTER TABLE marynarz DROP Loko;
+ERROR 1091 (42000): Can't DROP 'Loko'; check that column/key exists
+mysql> DELETE FROM marynarz WHERE nazwa='Loko';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT*FROM marynarz;
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa               | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn               | wiking  | 1990-12-01 |   31 | Kapitan | Mars   | 01234567891 |
+|          2 | Drozd               | ptak    | 2020-12-01 |    1 | NULL    | Mars   | 02233561895 |
+|          3 | Tesciowa            | kobieta | 1940-12-01 |   88 | NULL    | Mars   | 12433463895 |
+|          4 | Jan                 | wiking  | 1990-12-12 |   31 | NULL    | Mars   | 01142333995 |
+|          5 | Krzysztof           | wiking  | 1990-12-11 |   31 | NULL    | Wenus  | 01241343995 |
+|          6 | Jakub               | wiking  | 1990-11-11 |   31 | NULL    | Mars   | 03242313915 |
+|          7 | Gertruda Nieszczera | syrena  | 2000-06-03 |   21 | NULL    | Mars   | NULL        |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> ALTER TABLE marynarz ADD PRIMARY KEY(pesel);
+ERROR 1138 (22004): Invalid use of NULL value
+mysql> ALTER TABLE marynarz ADD FOREIGN KEY(pesel);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> UPDATE marynarz SET statek=NULL;
+Query OK, 7 rows affected (0.00 sec)
+Rows matched: 7  Changed: 7  Warnings: 0
+
+mysql> SELECT*FROM marynarz;
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+| id_postaci | nazwa               | rodzaj  | data_ur    | wiek | funkcja | statek | pesel       |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+|          1 | Bjorn               | wiking  | 1990-12-01 |   31 | Kapitan | NULL   | 01234567891 |
+|          2 | Drozd               | ptak    | 2020-12-01 |    1 | NULL    | NULL   | 02233561895 |
+|          3 | Tesciowa            | kobieta | 1940-12-01 |   88 | NULL    | NULL   | 12433463895 |
+|          4 | Jan                 | wiking  | 1990-12-12 |   31 | NULL    | NULL   | 01142333995 |
+|          5 | Krzysztof           | wiking  | 1990-12-11 |   31 | NULL    | NULL   | 01241343995 |
+|          6 | Jakub               | wiking  | 1990-11-11 |   31 | NULL    | NULL   | 03242313915 |
+|          7 | Gertruda Nieszczera | syrena  | 2000-06-03 |   21 | NULL    | NULL   | NULL        |
++------------+---------------------+---------+------------+------+---------+--------+-------------+
+7 rows in set (0.00 sec)
