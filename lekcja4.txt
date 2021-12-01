@@ -1,0 +1,953 @@
+login as: budzichowskim
+budzichowskim@213.184.8.36's password:
+Linux bad2 4.10.17-1-pve #1 SMP PVE 4.10.17-16 (Tue, 11 Jul 2017 09:55:44 +0200)                                                                                                                                                              x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Wed Nov 24 11:43:30 2021 from 213.184.8.151
+budzichowskim@bad2:~$ mysql -u budzichowskim -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2516
+Server version: 8.0.22 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| budzichowskim      |
+| information_schema |
+| wikingowie         |
++--------------------+
+3 rows in set (0.32 sec)
+
+mysql> use budzichowskim;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-------------------------+
+| Tables_in_budzichowskim |
++-------------------------+
+| ekwipunek               |
+| kreatura                |
+| marynarz                |
+| pracownik               |
+| projekt1                |
+| przetwory               |
+| walizka                 |
+| zasob                   |
+| zwierz                  |
++-------------------------+
+9 rows in set (0.04 sec)
+
+mysql> SELECT*FROM kreatura;
++------------+----------------------------+---------+------------+------+-------                                                                                                                                                             -+
+| idKreatury | nazwa                      | rodzaj  | dataUr     | waga | udzwig                                                                                                                                                              |
++------------+----------------------------+---------+------------+------+-------                                                                                                                                                             -+
+|          1 | Bjorn                      | wiking  | 1670-04-01 |   99 |     80                                                                                                                                                              |
+|          2 | Brutal                     | wiking  | 1672-12-24 |  120 |     85                                                                                                                                                              |
+|          3 | Khorad                     | wiking  | 1671-07-15 |  105 |     81                                                                                                                                                              |
+|          4 | Birgun                     | wiking  | 1675-05-11 |   88 |     66                                                                                                                                                              |
+|          5 | Defgard                    | wiking  | 1674-07-05 |  100 |     72                                                                                                                                                              |
+|          6 | Astrid                     | wiking  | 1677-08-18 |   75 |     49                                                                                                                                                              |
+|          7 | Ibra                       | wiking  | 1674-02-03 |  105 |     87                                                                                                                                                              |
+|          8 | Bjolkolur                  | wiking  | 1676-03-30 |  110 |     93                                                                                                                                                              |
+|          9 | Nemo                       | ryba    | 1677-10-02 |    1 |      1                                                                                                                                                              |
+|         10 | Loko                       | waz     | 1677-10-05 |    3 |      4                                                                                                                                                              |
+|         11 | Drozd                      | ptak    | 1675-07-07 |    2 |      1                                                                                                                                                              |
+|         12 | Ara                        | ptak    | 1676-05-05 |    2 |      1                                                                                                                                                              |
+|         13 | Szczeki                    | ryba    | 1674-04-06 | 2100 |    600                                                                                                                                                              |
+|         14 | Tesciowa                   | wiedzma | 1655-10-01 |   65 |     40                                                                                                                                                              |
+|         15 | Tiki                       | malpa   | 1672-08-08 |   32 |     25                                                                                                                                                              |
+|         16 | Dziadek                    | wiking  | 1645-01-23 |   54 |    100                                                                                                                                                              |
+|         17 | sztuczna szczeka tesciowej | wiedzma | 1680-08-13 |    2 |      1                                                                                                                                                              |
+|         18 | Tesciowa dziadka           | wiedzma | 1630-04-30 |   78 |     12                                                                                                                                                              |
+|        100 | Babajaga                   | wiedzma | 1000-01-01 |   20 |   1000                                                                                                                                                              |
++------------+----------------------------+---------+------------+------+-------                                                                                                                                                             -+
+19 rows in set (0.00 sec)
+
+mysql> Smysql> SELECT*FROM kreatura;
++------------+----------------------------+---------+------------+------+--------+
+| idKreatury | nazwa                      | rodzaj  | dataUr     | waga | udzwig |
++------------+----------------------------+---------+------------+------+--------+
+|          1 | Bjorn                      | wiking  | 1670-04-01 |   99 |     80 |
+|          2 | Brutal                     | wiking  | 1672-12-24 |  120 |     85 |
+|          3 | Khorad                     | wiking  | 1671-07-15 |  105 |     81 |
+|          4 | Birgun                     | wiking  | 1675-05-11 |   88 |     66 |
+|          5 | Defgard                    | wiking  | 1674-07-05 |  100 |     72 |
+|          6 | Astrid                     | wiking  | 1677-08-18 |   75 |     49 |
+|          7 | Ibra                       | wiking  | 1674-02-03 |  105 |     87 |
+|          8 | Bjolkolur                  | wiking  | 1676-03-30 |  110 |     93 |
+|          9 | Nemo                       | ryba    | 1677-10-02 |    1 |      1 |
+|         10 | Loko                       | waz     | 1677-10-05 |    3 |      4 |
+|         11 | Drozd                      | ptak    | 1675-07-07 |    2 |      1 |
+|         12 | Ara                        | ptak    | 1676-05-05 |    2 |      1 |
+|         13 | Szczeki                    | ryba    | 1674-04-06 | 2100 |    600 |
+|         14 | Tesciowa                   | wiedzma | 1655-10-01 |   65 |     40 |
+|         15 | Tiki                       | malpa   | 1672-08-08 |   32 |     25 |
+|         16 | Dziadek                    | wiking  | 1645-01-23 |   54 |    100 |
+|         17 | sztuczna szczeka tesciowej | wiedzma | 1680-08-13 |    2 |      1 |
+|         18 | Tesciowa dziadka           | wiedzma | 1630-04-30 |   78 |     12 |
+|        100 | Babajaga                   | wiedzma | 1000-01-01 |   20 |   1000 |
++------------+----------------------------+---------+------------+------+--------+
+19 rows in set (0.00 sec)
+
+mysql> mysql> SELECT*FROM ekwipunek;
+ERROR 1146 (42S02): Table 'budzichowskim.kreaturekwipunek' doesn't exist
+mysql> SELECT*FROM ekwipunek;
++-------------+------------+----------+-------+
+| idEkwipunku | idKreatury | idZasobu | ilosc |
++-------------+------------+----------+-------+
+|           1 |          1 |        1 |     2 |
+|           2 |          1 |       10 |     1 |
+|           3 |          1 |       14 |     3 |
+|           4 |          1 |       15 |    53 |
+|           5 |          1 |        2 |     3 |
+|           6 |          2 |        2 |     2 |
+|           7 |          2 |        4 |     2 |
+|           8 |          1 |       23 |     1 |
+|           9 |          1 |       18 |     1 |
+|          10 |          6 |        1 |     4 |
+|          11 |          3 |       17 |     1 |
+|          12 |          7 |       16 |     1 |
+|          13 |          7 |       19 |     1 |
+|          14 |         14 |       25 |     2 |
+|          15 |         14 |       27 |     1 |
+|          16 |         14 |       24 |     1 |
+|          17 |         14 |       26 |     1 |
+|          18 |          6 |       20 |     1 |
+|          19 |          5 |       17 |     2 |
+|          20 |          8 |       21 |     2 |
+|          21 |         11 |       13 |     1 |
+|          22 |          8 |       22 |    10 |
+|          23 |         13 |        9 |     1 |
+|          24 |          5 |        2 |     2 |
+|          25 |          5 |       21 |    50 |
+|          26 |          5 |       16 |     1 |
+|          27 |       NULL |       12 |    34 |
+|          28 |          6 |       13 |     1 |
++-------------+------------+----------+-------+
+28 rows in set (0.07 sec)
+
+mysql> SELECT*FROM kreatura LEFT JOIN ekwipunek kreatura.idKreatury=ekwipunek.idKreatury;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.idKreatury=ekwipune                                                              k.idKreatury' at line 1
+mysql> SELECT*FROM kreatura LEFT JOIN ekwipunek kreatura.idKreatury = ekwipunek.idKreatury WHERE idEkwipunku SET NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.idKreatury = ekwipu                                                              nek.idKreatury WHERE idEkwipunku SET NULL' at line 1
+mysql> SELECT*FROM kreatura LEFT JOIN ekwipunek kreatura.idKreatury = ekwipunek.idKreatury WHERE idEkwipunku IS NULL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.idKreatury = ekwipu                                                              nek.idKreatury WHERE idEkwipunku IS NULL' at line 1
+mysql> SELECT*FROM kreatura LEFT JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury WHERE idEkwipunku IS NULL;
++------------+----------------------------+---------+------------+------+--------+-------------+------------+----------+-------+
+| idKreatury | nazwa                      | rodzaj  | dataUr     | waga | udzwig | idEkwipunku | idKreatury | idZasobu | ilosc |
++------------+----------------------------+---------+------------+------+--------+-------------+------------+----------+-------+
+|          4 | Birgun                     | wiking  | 1675-05-11 |   88 |     66 |        NULL |       NULL |     NULL |  NULL |
+|          9 | Nemo                       | ryba    | 1677-10-02 |    1 |      1 |        NULL |       NULL |     NULL |  NULL |
+|         10 | Loko                       | waz     | 1677-10-05 |    3 |      4 |        NULL |       NULL |     NULL |  NULL |
+|         12 | Ara                        | ptak    | 1676-05-05 |    2 |      1 |        NULL |       NULL |     NULL |  NULL |
+|         15 | Tiki                       | malpa   | 1672-08-08 |   32 |     25 |        NULL |       NULL |     NULL |  NULL |
+|         16 | Dziadek                    | wiking  | 1645-01-23 |   54 |    100 |        NULL |       NULL |     NULL |  NULL |
+|         17 | sztuczna szczeka tesciowej | wiedzma | 1680-08-13 |    2 |      1 |        NULL |       NULL |     NULL |  NULL |
+|         18 | Tesciowa dziadka           | wiedzma | 1630-04-30 |   78 |     12 |        NULL |       NULL |     NULL |  NULL |
+|        100 | Babajaga                   | wiedzma | 1000-01-01 |   20 |   1000 |        NULL |       NULL |     NULL |  NULL |
++------------+----------------------------+---------+------------+------+--------+-------------+------------+----------+-------+
+9 rows in set (0.02 sec)
+
+mysql> SELECT*FROM kreatura;
++------------+----------------------------+---------+------------+------+--------+
+| idKreatury | nazwa                      | rodzaj  | dataUr     | waga | udzwig |
++------------+----------------------------+---------+------------+------+--------+
+|          1 | Bjorn                      | wiking  | 1670-04-01 |   99 |     80 |
+|          2 | Brutal                     | wiking  | 1672-12-24 |  120 |     85 |
+|          3 | Khorad                     | wiking  | 1671-07-15 |  105 |     81 |
+|          4 | Birgun                     | wiking  | 1675-05-11 |   88 |     66 |
+|          5 | Defgard                    | wiking  | 1674-07-05 |  100 |     72 |
+|          6 | Astrid                     | wiking  | 1677-08-18 |   75 |     49 |
+|          7 | Ibra                       | wiking  | 1674-02-03 |  105 |     87 |
+|          8 | Bjolkolur                  | wiking  | 1676-03-30 |  110 |     93 |
+|          9 | Nemo                       | ryba    | 1677-10-02 |    1 |      1 |
+|         10 | Loko                       | waz     | 1677-10-05 |    3 |      4 |
+|         11 | Drozd                      | ptak    | 1675-07-07 |    2 |      1 |
+|         12 | Ara                        | ptak    | 1676-05-05 |    2 |      1 |
+|         13 | Szczeki                    | ryba    | 1674-04-06 | 2100 |    600 |
+|         14 | Tesciowa                   | wiedzma | 1655-10-01 |   65 |     40 |
+|         15 | Tiki                       | malpa   | 1672-08-08 |   32 |     25 |
+|         16 | Dziadek                    | wiking  | 1645-01-23 |   54 |    100 |
+|         17 | sztuczna szczeka tesciowej | wiedzma | 1680-08-13 |    2 |      1 |
+|         18 | Tesciowa dziadka           | wiedzma | 1630-04-30 |   78 |     12 |
+|        100 | Babajaga                   | wiedzma | 1000-01-01 |   20 |   1000 |
++------------+----------------------------+---------+------------+------+--------+
+19 rows in set (0.02 sec)
+
+mysql> SELECT nazwa,AVG(waga) FROM zasob GROUP BY nazwa HAVING AVG(ilosc)=4 AND SUM(waga)>10;
+Empty set (0.02 sec)
+
+mysql> SELECT nazwa,AVG(waga) FROM zasob GROUP BY nazwa HAVING AVG(ilosc)>=4 AND SUM(waga)>10;
++---------------+-----------+
+| nazwa         | AVG(waga) |
++---------------+-----------+
+| skora geparda | 30.000000 |
++---------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT*FROM kreatura;
++------------+----------------------------+---------+------------+------+--------+
+| idKreatury | nazwa                      | rodzaj  | dataUr     | waga | udzwig |
++------------+----------------------------+---------+------------+------+--------+
+|          1 | Bjorn                      | wiking  | 1670-04-01 |   99 |     80 |
+|          2 | Brutal                     | wiking  | 1672-12-24 |  120 |     85 |
+|          3 | Khorad                     | wiking  | 1671-07-15 |  105 |     81 |
+|          4 | Birgun                     | wiking  | 1675-05-11 |   88 |     66 |
+|          5 | Defgard                    | wiking  | 1674-07-05 |  100 |     72 |
+|          6 | Astrid                     | wiking  | 1677-08-18 |   75 |     49 |
+|          7 | Ibra                       | wiking  | 1674-02-03 |  105 |     87 |
+|          8 | Bjolkolur                  | wiking  | 1676-03-30 |  110 |     93 |
+|          9 | Nemo                       | ryba    | 1677-10-02 |    1 |      1 |
+|         10 | Loko                       | waz     | 1677-10-05 |    3 |      4 |
+|         11 | Drozd                      | ptak    | 1675-07-07 |    2 |      1 |
+|         12 | Ara                        | ptak    | 1676-05-05 |    2 |      1 |
+|         13 | Szczeki                    | ryba    | 1674-04-06 | 2100 |    600 |
+|         14 | Tesciowa                   | wiedzma | 1655-10-01 |   65 |     40 |
+|         15 | Tiki                       | malpa   | 1672-08-08 |   32 |     25 |
+|         16 | Dziadek                    | wiking  | 1645-01-23 |   54 |    100 |
+|         17 | sztuczna szczeka tesciowej | wiedzma | 1680-08-13 |    2 |      1 |
+|         18 | Tesciowa dziadka           | wiedzma | 1630-04-30 |   78 |     12 |
+|        100 | Babajaga                   | wiedzma | 1000-01-01 |   20 |   1000 |
++------------+----------------------------+---------+------------+------+--------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT nazwa FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679;
++-----------+
+| nazwa     |
++-----------+
+| Bjorn     |
+| Brutal    |
+| Khorad    |
+| Birgun    |
+| Defgard   |
+| Astrid    |
+| Ibra      |
+| Bjolkolur |
+| Nemo      |
+| Loko      |
+| Drozd     |
+| Ara       |
+| Szczeki   |
+| Tiki      |
++-----------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT nazwa,dataUr FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679;
++-----------+------------+
+| nazwa     | dataUr     |
++-----------+------------+
+| Bjorn     | 1670-04-01 |
+| Brutal    | 1672-12-24 |
+| Khorad    | 1671-07-15 |
+| Birgun    | 1675-05-11 |
+| Defgard   | 1674-07-05 |
+| Astrid    | 1677-08-18 |
+| Ibra      | 1674-02-03 |
+| Bjolkolur | 1676-03-30 |
+| Nemo      | 1677-10-02 |
+| Loko      | 1677-10-05 |
+| Drozd     | 1675-07-07 |
+| Ara       | 1676-05-05 |
+| Szczeki   | 1674-04-06 |
+| Tiki      | 1672-08-08 |
++-----------+------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT nazwa,dataUr FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679 NATURAL JOIN zasobl
+    -> SELECT nazwa,dataUr FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679 NATURAL JOIN zasob^C
+mysql> SELECT nazwa,dataUr FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679 NATURAL JOIN zasob;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NATURAL JOIN zasob'                                                               at line 1
+mysql> SELECT nazwa,rodzaj FROM zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MIN(ilosc)>1;
++---------------+--------------------+
+| nazwa         | rodzaj             |
++---------------+--------------------+
+| banan         | jedzenie           |
+| figa          | jedzenie           |
+| bataty        | jedzenie           |
+| opos          | jedzenie           |
+| buty          | ubranie            |
+| lisc palmowy  | ubranie            |
+| skora geparda | ubranie            |
+| kiel slonia   | ubranie            |
+| dzida         | narzedzie zbrodni  |
+| luk           | narzedzie zbrodni  |
+| pnacza        | material budowlany |
+| deski         | material budowlany |
++---------------+--------------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT nazwa,DISTINCT(rodzaj) FROM zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MIN(ilosc)>1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT(rodzaj) FRO                                                              M zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MI' at line 1
+mysql> SELECT nazwa,DISTINCT rodzaj FROM zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MIN(ilosc)>1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT rodzaj FROM                                                               zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MIN' at line 1
+mysql> SELECT DISTINCT rodzaj FROM zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MIN(ilosc)>1;
++--------------------+
+| rodzaj             |
++--------------------+
+| jedzenie           |
+| material budowlany |
+| narzedzie zbrodni  |
+| ubranie            |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT rodzaj,nazwa FROM zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MIN(ilosc)>1;
++--------------------+---------------+
+| rodzaj             | nazwa         |
++--------------------+---------------+
+| jedzenie           | banan         |
+| jedzenie           | figa          |
+| jedzenie           | bataty        |
+| jedzenie           | opos          |
+| ubranie            | buty          |
+| ubranie            | lisc palmowy  |
+| ubranie            | skora geparda |
+| ubranie            | kiel slonia   |
+| narzedzie zbrodni  | dzida         |
+| narzedzie zbrodni  | luk           |
+| material budowlany | pnacza        |
+| material budowlany | deski         |
++--------------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT rodzaj,nazwa FROM zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MIN(ilosc)>1;
++--------------------+---------------+
+| rodzaj             | nazwa         |
++--------------------+---------------+
+| jedzenie           | banan         |
+| jedzenie           | figa          |
+| jedzenie           | bataty        |
+| jedzenie           | opos          |
+| ubranie            | buty          |
+| ubranie            | lisc palmowy  |
+| ubranie            | skora geparda |
+| ubranie            | kiel slonia   |
+| narzedzie zbrodni  | dzida         |
+| narzedzie zbrodni  | luk           |
+| material budowlany | pnacza        |
+| material budowlany | deski         |
++--------------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT rodzaj,nazwa FROM zasob WHERE rodzaj!='NULL' GROUP BY nazwa,rodzaj HAVING MIN(ilosc)>1;
++--------------------+---------------+
+| rodzaj             | nazwa         |
++--------------------+---------------+
+| jedzenie           | banan         |
+| jedzenie           | figa          |
+| jedzenie           | bataty        |
+| jedzenie           | opos          |
+| ubranie            | buty          |
+| ubranie            | lisc palmowy  |
+| ubranie            | skora geparda |
+| ubranie            | kiel slonia   |
+| narzedzie zbrodni  | dzida         |
+| narzedzie zbrodni  | luk           |
+| material budowlany | pnacza        |
+| material budowlany | deski         |
++--------------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> SELECT nazwa,dataUr FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679;
++-----------+------------+
+| nazwa     | dataUr     |
++-----------+------------+
+| Bjorn     | 1670-04-01 |
+| Brutal    | 1672-12-24 |
+| Khorad    | 1671-07-15 |
+| Birgun    | 1675-05-11 |
+| Defgard   | 1674-07-05 |
+| Astrid    | 1677-08-18 |
+| Ibra      | 1674-02-03 |
+| Bjolkolur | 1676-03-30 |
+| Nemo      | 1677-10-02 |
+| Loko      | 1677-10-05 |
+| Drozd     | 1675-07-07 |
+| Ara       | 1676-05-05 |
+| Szczeki   | 1674-04-06 |
+| Tiki      | 1672-08-08 |
++-----------+------------+
+14 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.nazwa FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679 JOIN zasob ON;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'JOIN zasob ON' at li                                                              ne 1
+mysql> SELECT * FROM zasob;
++----------+-------------------+--------+-------+----------------+--------------------+
+| idZasobu | nazwa             | waga   | ilosc | dataPozyskania | rodzaj             |
++----------+-------------------+--------+-------+----------------+--------------------+
+|        1 | kokos             |   2.00 |     3 | 2007-07-23     | jedzenie           |
+|        2 | siekiera          |  13.00 |     1 | 1974-01-04     | narzedzie          |
+|        3 | kokos             |   4.00 |     1 | 2004-09-03     | jedzenie           |
+|        4 | kokos             |   7.00 |     2 | 2010-10-13     | jedzenie           |
+|        5 | banan             |   2.00 |    12 | 2015-11-09     | jedzenie           |
+|        6 | figa              |   1.00 |    30 | 2001-12-14     | jedzenie           |
+|        7 | krokodyl          | 100.00 |     1 | 2005-07-14     | jedzenie           |
+|        8 | bataty            |   1.00 |    30 | 2002-07-01     | jedzenie           |
+|        9 | opos              |  12.00 |     2 | 2006-08-01     | jedzenie           |
+|       10 | stanik            |   0.20 |   120 | 2004-06-01     | NULL               |
+|       11 | stanik            |   0.30 |    20 | 2004-06-15     | NULL               |
+|       12 | stanik            |   0.40 |    30 | 2004-07-15     | NULL               |
+|       13 | stanik            |   0.20 |    40 | 2012-08-15     | NULL               |
+|       14 | buty              |   2.00 |     2 | 2010-08-15     | ubranie            |
+|       15 | lisc palmowy      |   0.10 |  1000 | 2001-03-25     | ubranie            |
+|       16 | skora geparda     |  30.00 |     7 | 2013-07-25     | ubranie            |
+|       17 | kiel slonia       |   1.00 |     9 | 2003-01-25     | ubranie            |
+|       18 | topor             |   3.00 |     1 | 2000-01-25     | narzedzie zbrodni  |
+|       19 | dzida             |   2.00 |    10 | 2001-03-21     | narzedzie zbrodni  |
+|       20 | luk               |   1.00 |     3 | 2003-04-17     | narzedzie zbrodni  |
+|       21 | pnacza            |   0.10 |   300 | 2010-02-17     | material budowlany |
+|       22 | deski             |   0.50 |   120 | 2008-02-17     | material budowlany |
+|       23 | hamak             |   2.00 |     1 | 2001-01-17     | miejsce wypoczynku |
+|       24 | chatka na drzewie |   2.00 |     1 | 2012-08-17     | miejsce wypoczynku |
+|       25 | nie wiadomo co    |   4.00 |     1 | 2001-08-10     | NULL               |
+|       26 | ogien do ziania   |   1.00 |     4 | 2002-08-10     | NULL               |
+|       27 | miotla            |   3.00 |     1 | 2005-10-10     | NULL               |
+|       28 | banan             |   1.00 |     7 | 2008-08-21     | jedzenie           |
++----------+-------------------+--------+-------+----------------+--------------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.nazwa FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679 NATURAL zasob;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NATURAL zasob' at li                                                              ne 1
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.nazwa FROM kreatura WHERE YEAR(dataUr) BETWEEN 1670 AND 1679 NATURAL JOIN zasob;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NATURAL JOIN zasob'                                                               at line 1
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.nazwa FROM kreatura NATURAL JOIN zasob;
+Empty set (0.01 sec)
+
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.nazwa FROM kreatura JOIN zasob ON zasob.nazwa;
+Empty set, 28 warnings (0.00 sec)
+
+mysql> SELECT nazwa,dataUr FROM kreatura JOIN zasob ON zasob.nazwa;
+ERROR 1052 (23000): Column 'nazwa' in field list is ambiguous
+mysql> SELECT kreatura.nazwa,dataUr FROM kreatura JOIN zasob ON zasob.nazwa;
+Empty set, 28 warnings (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,dataUr FROM kreatura;
++----------------------------+------------+
+| nazwa                      | dataUr     |
++----------------------------+------------+
+| Bjorn                      | 1670-04-01 |
+| Brutal                     | 1672-12-24 |
+| Khorad                     | 1671-07-15 |
+| Birgun                     | 1675-05-11 |
+| Defgard                    | 1674-07-05 |
+| Astrid                     | 1677-08-18 |
+| Ibra                       | 1674-02-03 |
+| Bjolkolur                  | 1676-03-30 |
+| Nemo                       | 1677-10-02 |
+| Loko                       | 1677-10-05 |
+| Drozd                      | 1675-07-07 |
+| Ara                        | 1676-05-05 |
+| Szczeki                    | 1674-04-06 |
+| Tesciowa                   | 1655-10-01 |
+| Tiki                       | 1672-08-08 |
+| Dziadek                    | 1645-01-23 |
+| sztuczna szczeka tesciowej | 1680-08-13 |
+| Tesciowa dziadka           | 1630-04-30 |
+| Babajaga                   | 1000-01-01 |
++----------------------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,YEAR((dataUR) BETWEEN 1670 AND 1679) FROM kreatura;
++----------------------------+--------------------------------------+
+| nazwa                      | YEAR((dataUR) BETWEEN 1670 AND 1679) |
++----------------------------+--------------------------------------+
+| Bjorn                      |                                    0 |
+| Brutal                     |                                    0 |
+| Khorad                     |                                    0 |
+| Birgun                     |                                    0 |
+| Defgard                    |                                    0 |
+| Astrid                     |                                    0 |
+| Ibra                       |                                    0 |
+| Bjolkolur                  |                                    0 |
+| Nemo                       |                                    0 |
+| Loko                       |                                    0 |
+| Drozd                      |                                    0 |
+| Ara                        |                                    0 |
+| Szczeki                    |                                    0 |
+| Tesciowa                   |                                    0 |
+| Tiki                       |                                    0 |
+| Dziadek                    |                                    0 |
+| sztuczna szczeka tesciowej |                                    0 |
+| Tesciowa dziadka           |                                    0 |
+| Babajaga                   |                                    0 |
++----------------------------+--------------------------------------+
+19 rows in set, 2 warnings (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,YEAR(dataUR)(BETWEEN 1670 AND 1679) FROM kreatura;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(BETWEEN 1670 AND 16                                                              79) FROM kreatura' at line 1
+mysql> SELECT kreatura.nazwa,YEAR(dataUR)BETWEEN 1670 AND 1679 FROM kreatura;
++----------------------------+-----------------------------------+
+| nazwa                      | YEAR(dataUR)BETWEEN 1670 AND 1679 |
++----------------------------+-----------------------------------+
+| Bjorn                      |                                 1 |
+| Brutal                     |                                 1 |
+| Khorad                     |                                 1 |
+| Birgun                     |                                 1 |
+| Defgard                    |                                 1 |
+| Astrid                     |                                 1 |
+| Ibra                       |                                 1 |
+| Bjolkolur                  |                                 1 |
+| Nemo                       |                                 1 |
+| Loko                       |                                 1 |
+| Drozd                      |                                 1 |
+| Ara                        |                                 1 |
+| Szczeki                    |                                 1 |
+| Tesciowa                   |                                 0 |
+| Tiki                       |                                 1 |
+| Dziadek                    |                                 0 |
+| sztuczna szczeka tesciowej |                                 0 |
+| Tesciowa dziadka           |                                 0 |
+| Babajaga                   |                                 0 |
++----------------------------+-----------------------------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,YEAR(dataUR) FROM kreatura;
++----------------------------+--------------+
+| nazwa                      | YEAR(dataUR) |
++----------------------------+--------------+
+| Bjorn                      |         1670 |
+| Brutal                     |         1672 |
+| Khorad                     |         1671 |
+| Birgun                     |         1675 |
+| Defgard                    |         1674 |
+| Astrid                     |         1677 |
+| Ibra                       |         1674 |
+| Bjolkolur                  |         1676 |
+| Nemo                       |         1677 |
+| Loko                       |         1677 |
+| Drozd                      |         1675 |
+| Ara                        |         1676 |
+| Szczeki                    |         1674 |
+| Tesciowa                   |         1655 |
+| Tiki                       |         1672 |
+| Dziadek                    |         1645 |
+| sztuczna szczeka tesciowej |         1680 |
+| Tesciowa dziadka           |         1630 |
+| Babajaga                   |         1000 |
++----------------------------+--------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,dataUr FROM kreatura;
++----------------------------+------------+
+| nazwa                      | dataUr     |
++----------------------------+------------+
+| Bjorn                      | 1670-04-01 |
+| Brutal                     | 1672-12-24 |
+| Khorad                     | 1671-07-15 |
+| Birgun                     | 1675-05-11 |
+| Defgard                    | 1674-07-05 |
+| Astrid                     | 1677-08-18 |
+| Ibra                       | 1674-02-03 |
+| Bjolkolur                  | 1676-03-30 |
+| Nemo                       | 1677-10-02 |
+| Loko                       | 1677-10-05 |
+| Drozd                      | 1675-07-07 |
+| Ara                        | 1676-05-05 |
+| Szczeki                    | 1674-04-06 |
+| Tesciowa                   | 1655-10-01 |
+| Tiki                       | 1672-08-08 |
+| Dziadek                    | 1645-01-23 |
+| sztuczna szczeka tesciowej | 1680-08-13 |
+| Tesciowa dziadka           | 1630-04-30 |
+| Babajaga                   | 1000-01-01 |
++----------------------------+------------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT*FROM zasob;
++----------+-------------------+--------+-------+----------------+--------------------+
+| idZasobu | nazwa             | waga   | ilosc | dataPozyskania | rodzaj             |
++----------+-------------------+--------+-------+----------------+--------------------+
+|        1 | kokos             |   2.00 |     3 | 2007-07-23     | jedzenie           |
+|        2 | siekiera          |  13.00 |     1 | 1974-01-04     | narzedzie          |
+|        3 | kokos             |   4.00 |     1 | 2004-09-03     | jedzenie           |
+|        4 | kokos             |   7.00 |     2 | 2010-10-13     | jedzenie           |
+|        5 | banan             |   2.00 |    12 | 2015-11-09     | jedzenie           |
+|        6 | figa              |   1.00 |    30 | 2001-12-14     | jedzenie           |
+|        7 | krokodyl          | 100.00 |     1 | 2005-07-14     | jedzenie           |
+|        8 | bataty            |   1.00 |    30 | 2002-07-01     | jedzenie           |
+|        9 | opos              |  12.00 |     2 | 2006-08-01     | jedzenie           |
+|       10 | stanik            |   0.20 |   120 | 2004-06-01     | NULL               |
+|       11 | stanik            |   0.30 |    20 | 2004-06-15     | NULL               |
+|       12 | stanik            |   0.40 |    30 | 2004-07-15     | NULL               |
+|       13 | stanik            |   0.20 |    40 | 2012-08-15     | NULL               |
+|       14 | buty              |   2.00 |     2 | 2010-08-15     | ubranie            |
+|       15 | lisc palmowy      |   0.10 |  1000 | 2001-03-25     | ubranie            |
+|       16 | skora geparda     |  30.00 |     7 | 2013-07-25     | ubranie            |
+|       17 | kiel slonia       |   1.00 |     9 | 2003-01-25     | ubranie            |
+|       18 | topor             |   3.00 |     1 | 2000-01-25     | narzedzie zbrodni  |
+|       19 | dzida             |   2.00 |    10 | 2001-03-21     | narzedzie zbrodni  |
+|       20 | luk               |   1.00 |     3 | 2003-04-17     | narzedzie zbrodni  |
+|       21 | pnacza            |   0.10 |   300 | 2010-02-17     | material budowlany |
+|       22 | deski             |   0.50 |   120 | 2008-02-17     | material budowlany |
+|       23 | hamak             |   2.00 |     1 | 2001-01-17     | miejsce wypoczynku |
+|       24 | chatka na drzewie |   2.00 |     1 | 2012-08-17     | miejsce wypoczynku |
+|       25 | nie wiadomo co    |   4.00 |     1 | 2001-08-10     | NULL               |
+|       26 | ogien do ziania   |   1.00 |     4 | 2002-08-10     | NULL               |
+|       27 | miotla            |   3.00 |     1 | 2005-10-10     | NULL               |
+|       28 | banan             |   1.00 |     7 | 2008-08-21     | jedzenie           |
++----------+-------------------+--------+-------+----------------+--------------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT*FROM ekwipunek;
++-------------+------------+----------+-------+
+| idEkwipunku | idKreatury | idZasobu | ilosc |
++-------------+------------+----------+-------+
+|           1 |          1 |        1 |     2 |
+|           2 |          1 |       10 |     1 |
+|           3 |          1 |       14 |     3 |
+|           4 |          1 |       15 |    53 |
+|           5 |          1 |        2 |     3 |
+|           6 |          2 |        2 |     2 |
+|           7 |          2 |        4 |     2 |
+|           8 |          1 |       23 |     1 |
+|           9 |          1 |       18 |     1 |
+|          10 |          6 |        1 |     4 |
+|          11 |          3 |       17 |     1 |
+|          12 |          7 |       16 |     1 |
+|          13 |          7 |       19 |     1 |
+|          14 |         14 |       25 |     2 |
+|          15 |         14 |       27 |     1 |
+|          16 |         14 |       24 |     1 |
+|          17 |         14 |       26 |     1 |
+|          18 |          6 |       20 |     1 |
+|          19 |          5 |       17 |     2 |
+|          20 |          8 |       21 |     2 |
+|          21 |         11 |       13 |     1 |
+|          22 |          8 |       22 |    10 |
+|          23 |         13 |        9 |     1 |
+|          24 |          5 |        2 |     2 |
+|          25 |          5 |       21 |    50 |
+|          26 |          5 |       16 |     1 |
+|          27 |       NULL |       12 |    34 |
+|          28 |          6 |       13 |     1 |
++-------------+------------+----------+-------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT*FROM kreatura;
++------------+----------------------------+---------+------------+------+--------+
+| idKreatury | nazwa                      | rodzaj  | dataUr     | waga | udzwig |
++------------+----------------------------+---------+------------+------+--------+
+|          1 | Bjorn                      | wiking  | 1670-04-01 |   99 |     80 |
+|          2 | Brutal                     | wiking  | 1672-12-24 |  120 |     85 |
+|          3 | Khorad                     | wiking  | 1671-07-15 |  105 |     81 |
+|          4 | Birgun                     | wiking  | 1675-05-11 |   88 |     66 |
+|          5 | Defgard                    | wiking  | 1674-07-05 |  100 |     72 |
+|          6 | Astrid                     | wiking  | 1677-08-18 |   75 |     49 |
+|          7 | Ibra                       | wiking  | 1674-02-03 |  105 |     87 |
+|          8 | Bjolkolur                  | wiking  | 1676-03-30 |  110 |     93 |
+|          9 | Nemo                       | ryba    | 1677-10-02 |    1 |      1 |
+|         10 | Loko                       | waz     | 1677-10-05 |    3 |      4 |
+|         11 | Drozd                      | ptak    | 1675-07-07 |    2 |      1 |
+|         12 | Ara                        | ptak    | 1676-05-05 |    2 |      1 |
+|         13 | Szczeki                    | ryba    | 1674-04-06 | 2100 |    600 |
+|         14 | Tesciowa                   | wiedzma | 1655-10-01 |   65 |     40 |
+|         15 | Tiki                       | malpa   | 1672-08-08 |   32 |     25 |
+|         16 | Dziadek                    | wiking  | 1645-01-23 |   54 |    100 |
+|         17 | sztuczna szczeka tesciowej | wiedzma | 1680-08-13 |    2 |      1 |
+|         18 | Tesciowa dziadka           | wiedzma | 1630-04-30 |   78 |     12 |
+|        100 | Babajaga                   | wiedzma | 1000-01-01 |   20 |   1000 |
++------------+----------------------------+---------+------------+------+--------+
+19 rows in set (0.00 sec)
+
+mysql> SELECT*FROM kreatura LEFT JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury WHERE idEkwipunku IS NULL;
++------------+----------------------------+---------+------------+------+--------+-------------+------------+----------+-------+
+| idKreatury | nazwa                      | rodzaj  | dataUr     | waga | udzwig | idEkwipunku | idKreatury | idZasobu | ilosc |
++------------+----------------------------+---------+------------+------+--------+-------------+------------+----------+-------+
+|          4 | Birgun                     | wiking  | 1675-05-11 |   88 |     66 |        NULL |       NULL |     NULL |  NULL |
+|          9 | Nemo                       | ryba    | 1677-10-02 |    1 |      1 |        NULL |       NULL |     NULL |  NULL |
+|         10 | Loko                       | waz     | 1677-10-05 |    3 |      4 |        NULL |       NULL |     NULL |  NULL |
+|         12 | Ara                        | ptak    | 1676-05-05 |    2 |      1 |        NULL |       NULL |     NULL |  NULL |
+|         15 | Tiki                       | malpa   | 1672-08-08 |   32 |     25 |        NULL |       NULL |     NULL |  NULL |
+|         16 | Dziadek                    | wiking  | 1645-01-23 |   54 |    100 |        NULL |       NULL |     NULL |  NULL |
+|         17 | sztuczna szczeka tesciowej | wiedzma | 1680-08-13 |    2 |      1 |        NULL |       NULL |     NULL |  NULL |
+|         18 | Tesciowa dziadka           | wiedzma | 1630-04-30 |   78 |     12 |        NULL |       NULL |     NULL |  NULL |
+|        100 | Babajaga                   | wiedzma | 1000-01-01 |   20 |   1000 |        NULL |       NULL |     NULL |  NULL |
++------------+----------------------------+---------+------------+------+--------+-------------+------------+----------+-------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.nazwa FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu;
++-----------+------------+-------------------+
+| nazwa     | dataUr     | nazwa             |
++-----------+------------+-------------------+
+| Astrid    | 1677-08-18 | kokos             |
+| Bjorn     | 1670-04-01 | kokos             |
+| Defgard   | 1674-07-05 | siekiera          |
+| Brutal    | 1672-12-24 | siekiera          |
+| Bjorn     | 1670-04-01 | siekiera          |
+| Brutal    | 1672-12-24 | kokos             |
+| Szczeki   | 1674-04-06 | opos              |
+| Bjorn     | 1670-04-01 | stanik            |
+| Astrid    | 1677-08-18 | stanik            |
+| Drozd     | 1675-07-07 | stanik            |
+| Bjorn     | 1670-04-01 | buty              |
+| Bjorn     | 1670-04-01 | lisc palmowy      |
+| Defgard   | 1674-07-05 | skora geparda     |
+| Ibra      | 1674-02-03 | skora geparda     |
+| Defgard   | 1674-07-05 | kiel slonia       |
+| Khorad    | 1671-07-15 | kiel slonia       |
+| Bjorn     | 1670-04-01 | topor             |
+| Ibra      | 1674-02-03 | dzida             |
+| Astrid    | 1677-08-18 | luk               |
+| Defgard   | 1674-07-05 | pnacza            |
+| Bjolkolur | 1676-03-30 | pnacza            |
+| Bjolkolur | 1676-03-30 | deski             |
+| Bjorn     | 1670-04-01 | hamak             |
+| Tesciowa  | 1655-10-01 | chatka na drzewie |
+| Tesciowa  | 1655-10-01 | nie wiadomo co    |
+| Tesciowa  | 1655-10-01 | ogien do ziania   |
+| Tesciowa  | 1655-10-01 | miotla            |
++-----------+------------+-------------------+
+27 rows in set (0.01 sec)
+
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.nazwa FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(kreatura.dataUr) BETWEEN 1670 AND 1679;
++-----------+------------+---------------+
+| nazwa     | dataUr     | nazwa         |
++-----------+------------+---------------+
+| Astrid    | 1677-08-18 | kokos         |
+| Bjorn     | 1670-04-01 | kokos         |
+| Defgard   | 1674-07-05 | siekiera      |
+| Brutal    | 1672-12-24 | siekiera      |
+| Bjorn     | 1670-04-01 | siekiera      |
+| Brutal    | 1672-12-24 | kokos         |
+| Szczeki   | 1674-04-06 | opos          |
+| Bjorn     | 1670-04-01 | stanik        |
+| Astrid    | 1677-08-18 | stanik        |
+| Drozd     | 1675-07-07 | stanik        |
+| Bjorn     | 1670-04-01 | buty          |
+| Bjorn     | 1670-04-01 | lisc palmowy  |
+| Defgard   | 1674-07-05 | skora geparda |
+| Ibra      | 1674-02-03 | skora geparda |
+| Defgard   | 1674-07-05 | kiel slonia   |
+| Khorad    | 1671-07-15 | kiel slonia   |
+| Bjorn     | 1670-04-01 | topor         |
+| Ibra      | 1674-02-03 | dzida         |
+| Astrid    | 1677-08-18 | luk           |
+| Defgard   | 1674-07-05 | pnacza        |
+| Bjolkolur | 1676-03-30 | pnacza        |
+| Bjolkolur | 1676-03-30 | deski         |
+| Bjorn     | 1670-04-01 | hamak         |
++-----------+------------+---------------+
+23 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu;
++-----------+--------------------+
+| nazwa     | rodzaj             |
++-----------+--------------------+
+| Astrid    | jedzenie           |
+| Bjorn     | jedzenie           |
+| Defgard   | narzedzie          |
+| Brutal    | narzedzie          |
+| Bjorn     | narzedzie          |
+| Brutal    | jedzenie           |
+| Szczeki   | jedzenie           |
+| Bjorn     | NULL               |
+| Astrid    | NULL               |
+| Drozd     | NULL               |
+| Bjorn     | ubranie            |
+| Bjorn     | ubranie            |
+| Defgard   | ubranie            |
+| Ibra      | ubranie            |
+| Defgard   | ubranie            |
+| Khorad    | ubranie            |
+| Bjorn     | narzedzie zbrodni  |
+| Ibra      | narzedzie zbrodni  |
+| Astrid    | narzedzie zbrodni  |
+| Defgard   | material budowlany |
+| Bjolkolur | material budowlany |
+| Bjolkolur | material budowlany |
+| Bjorn     | miejsce wypoczynku |
+| Tesciowa  | miejsce wypoczynku |
+| Tesciowa  | NULL               |
+| Tesciowa  | NULL               |
+| Tesciowa  | NULL               |
++-----------+--------------------+
+27 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE rodzaj='jedzenie';
+ERROR 1052 (23000): Column 'rodzaj' in where clause is ambiguous
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu;
++-----------+------------+--------------------+
+| nazwa     | dataUr     | rodzaj             |
++-----------+------------+--------------------+
+| Astrid    | 1677-08-18 | jedzenie           |
+| Bjorn     | 1670-04-01 | jedzenie           |
+| Defgard   | 1674-07-05 | narzedzie          |
+| Brutal    | 1672-12-24 | narzedzie          |
+| Bjorn     | 1670-04-01 | narzedzie          |
+| Brutal    | 1672-12-24 | jedzenie           |
+| Szczeki   | 1674-04-06 | jedzenie           |
+| Bjorn     | 1670-04-01 | NULL               |
+| Astrid    | 1677-08-18 | NULL               |
+| Drozd     | 1675-07-07 | NULL               |
+| Bjorn     | 1670-04-01 | ubranie            |
+| Bjorn     | 1670-04-01 | ubranie            |
+| Defgard   | 1674-07-05 | ubranie            |
+| Ibra      | 1674-02-03 | ubranie            |
+| Defgard   | 1674-07-05 | ubranie            |
+| Khorad    | 1671-07-15 | ubranie            |
+| Bjorn     | 1670-04-01 | narzedzie zbrodni  |
+| Ibra      | 1674-02-03 | narzedzie zbrodni  |
+| Astrid    | 1677-08-18 | narzedzie zbrodni  |
+| Defgard   | 1674-07-05 | material budowlany |
+| Bjolkolur | 1676-03-30 | material budowlany |
+| Bjolkolur | 1676-03-30 | material budowlany |
+| Bjorn     | 1670-04-01 | miejsce wypoczynku |
+| Tesciowa  | 1655-10-01 | miejsce wypoczynku |
+| Tesciowa  | 1655-10-01 | NULL               |
+| Tesciowa  | 1655-10-01 | NULL               |
+| Tesciowa  | 1655-10-01 | NULL               |
++-----------+------------+--------------------+
+27 rows in set (0.01 sec)
+
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE ASC YEAR(dataUr);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ASC YEAR(dataUr)' at line 1
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(dataUr) ASC;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ASC' at line 1
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(dataUr);
++-----------+------------+--------------------+
+| nazwa     | dataUr     | rodzaj             |
++-----------+------------+--------------------+
+| Astrid    | 1677-08-18 | jedzenie           |
+| Bjorn     | 1670-04-01 | jedzenie           |
+| Defgard   | 1674-07-05 | narzedzie          |
+| Brutal    | 1672-12-24 | narzedzie          |
+| Bjorn     | 1670-04-01 | narzedzie          |
+| Brutal    | 1672-12-24 | jedzenie           |
+| Szczeki   | 1674-04-06 | jedzenie           |
+| Bjorn     | 1670-04-01 | NULL               |
+| Astrid    | 1677-08-18 | NULL               |
+| Drozd     | 1675-07-07 | NULL               |
+| Bjorn     | 1670-04-01 | ubranie            |
+| Bjorn     | 1670-04-01 | ubranie            |
+| Defgard   | 1674-07-05 | ubranie            |
+| Ibra      | 1674-02-03 | ubranie            |
+| Defgard   | 1674-07-05 | ubranie            |
+| Khorad    | 1671-07-15 | ubranie            |
+| Bjorn     | 1670-04-01 | narzedzie zbrodni  |
+| Ibra      | 1674-02-03 | narzedzie zbrodni  |
+| Astrid    | 1677-08-18 | narzedzie zbrodni  |
+| Defgard   | 1674-07-05 | material budowlany |
+| Bjolkolur | 1676-03-30 | material budowlany |
+| Bjolkolur | 1676-03-30 | material budowlany |
+| Bjorn     | 1670-04-01 | miejsce wypoczynku |
+| Tesciowa  | 1655-10-01 | miejsce wypoczynku |
+| Tesciowa  | 1655-10-01 | NULL               |
+| Tesciowa  | 1655-10-01 | NULL               |
+| Tesciowa  | 1655-10-01 | NULL               |
++-----------+------------+--------------------+
+27 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(dataUr) ORDER BY dataUr ASC;
++-----------+------------+--------------------+
+| nazwa     | dataUr     | rodzaj             |
++-----------+------------+--------------------+
+| Tesciowa  | 1655-10-01 | NULL               |
+| Tesciowa  | 1655-10-01 | NULL               |
+| Tesciowa  | 1655-10-01 | NULL               |
+| Tesciowa  | 1655-10-01 | miejsce wypoczynku |
+| Bjorn     | 1670-04-01 | jedzenie           |
+| Bjorn     | 1670-04-01 | miejsce wypoczynku |
+| Bjorn     | 1670-04-01 | narzedzie zbrodni  |
+| Bjorn     | 1670-04-01 | ubranie            |
+| Bjorn     | 1670-04-01 | ubranie            |
+| Bjorn     | 1670-04-01 | NULL               |
+| Bjorn     | 1670-04-01 | narzedzie          |
+| Khorad    | 1671-07-15 | ubranie            |
+| Brutal    | 1672-12-24 | narzedzie          |
+| Brutal    | 1672-12-24 | jedzenie           |
+| Ibra      | 1674-02-03 | ubranie            |
+| Ibra      | 1674-02-03 | narzedzie zbrodni  |
+| Szczeki   | 1674-04-06 | jedzenie           |
+| Defgard   | 1674-07-05 | narzedzie          |
+| Defgard   | 1674-07-05 | material budowlany |
+| Defgard   | 1674-07-05 | ubranie            |
+| Defgard   | 1674-07-05 | ubranie            |
+| Drozd     | 1675-07-07 | NULL               |
+| Bjolkolur | 1676-03-30 | material budowlany |
+| Bjolkolur | 1676-03-30 | material budowlany |
+| Astrid    | 1677-08-18 | jedzenie           |
+| Astrid    | 1677-08-18 | narzedzie zbrodni  |
+| Astrid    | 1677-08-18 | NULL               |
++-----------+------------+--------------------+
+27 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(dataUr) ORDER BY dataUr AS
+C;
++-----------+------------+--------------------+
+| nazwa     | dataUr     | rodzaj             |
++-----------+------------+--------------------+
+| Tesciowa  | 1655-10-01 | NULL               |
+| Tesciowa  | 1655-10-01 | miejsce wypoczynku |
+| Bjorn     | 1670-04-01 | jedzenie           |
+| Bjorn     | 1670-04-01 | miejsce wypoczynku |
+| Bjorn     | 1670-04-01 | narzedzie zbrodni  |
+| Bjorn     | 1670-04-01 | ubranie            |
+| Bjorn     | 1670-04-01 | NULL               |
+| Bjorn     | 1670-04-01 | narzedzie          |
+| Khorad    | 1671-07-15 | ubranie            |
+| Brutal    | 1672-12-24 | jedzenie           |
+| Brutal    | 1672-12-24 | narzedzie          |
+| Ibra      | 1674-02-03 | ubranie            |
+| Ibra      | 1674-02-03 | narzedzie zbrodni  |
+| Szczeki   | 1674-04-06 | jedzenie           |
+| Defgard   | 1674-07-05 | ubranie            |
+| Defgard   | 1674-07-05 | material budowlany |
+| Defgard   | 1674-07-05 | narzedzie          |
+| Drozd     | 1675-07-07 | NULL               |
+| Bjolkolur | 1676-03-30 | material budowlany |
+| Astrid    | 1677-08-18 | NULL               |
+| Astrid    | 1677-08-18 | narzedzie zbrodni  |
+| Astrid    | 1677-08-18 | jedzenie           |
++-----------+------------+--------------------+
+22 rows in set (0.00 sec)
+
+mysql> SELECT DISTINCT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(dataUr) rodzaj='jedzenie'
+ORDER BY dataUr ASC
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rodzaj='jedzenie' ORDER BY dataUr ASC' at line 1
+mysql> SELECT DISTINCT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(dataUr) AND rodzaj='jedzen
+ie' ORDER BY dataUr ASC
+    -> ;
+ERROR 1052 (23000): Column 'rodzaj' in where clause is ambiguous
+mysql> SELECT DISTINCT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(dataUr) AND zasob.rodzaj='jedzenie' ORDER BY dataUr ASC;
++---------+------------+----------+
+| nazwa   | dataUr     | rodzaj   |
++---------+------------+----------+
+| Bjorn   | 1670-04-01 | jedzenie |
+| Brutal  | 1672-12-24 | jedzenie |
+| Szczeki | 1674-04-06 | jedzenie |
+| Astrid  | 1677-08-18 | jedzenie |
++---------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT kreatura.nazwa,kreatura.dataUr,zasob.rodzaj FROM kreatura INNER JOIN ekwipunek ON ekwipunek.idKreatury=kreatura.idKreatury INNER JOIN zasob ON zasob.idZasobu=ekwipunek.idZasobu WHERE YEAR(dataUr) AND zasob.rodzaj='jedzenie' ORDER BY dataUr ASC;
++---------+------------+----------+
+| nazwa   | dataUr     | rodzaj   |
++---------+------------+----------+
+| Bjorn   | 1670-04-01 | jedzenie |
+| Brutal  | 1672-12-24 | jedzenie |
+| Szczeki | 1674-04-06 | jedzenie |
+| Astrid  | 1677-08-18 | jedzenie |
++---------+------------+----------+
+4 rows in set (0.00 sec)
+
+mysql> ^C
+mysql> ^C
+mysql>
